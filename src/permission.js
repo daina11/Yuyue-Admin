@@ -33,9 +33,13 @@ router.beforeEach(async(to, from, next) => {
         try {
           // get user info
           await store.dispatch('user/getInfo')
-
-          next()
-        } catch (error) {
+          const roles = store.getters.role;
+          console.log(store.getters.routers)
+           store.dispatch('GenerateRoutes', { roles }).then(() => { // 生成可访问的路由表
+            router.addRoutes(store.getters.routers) // 动态添加可访问路由表
+            next({ ...to, replace: true })
+          })
+        }catch (error) {
           // remove token and go to login page to re-login
           await store.dispatch('user/resetToken')
           Message.error(error || 'Has Error')
