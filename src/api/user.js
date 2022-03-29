@@ -18,7 +18,8 @@ export function getInfo(token) {
 
 export function logout() {
   return request({
-    url: '/vue-admin-template/user/logout',
-    method: 'post'
+    url: 'http://localhost:8080/loginOut',
+    method: 'post',
+  
   })
 }

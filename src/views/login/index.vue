@@ -59,15 +59,15 @@ export default {
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+      if (value.length <= 5) {
+        callback(new Error('用户名长度要大于5'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+      if (value.length <= 5) {
+        callback(new Error('密码长度要大于5'))
       } else {
         callback()
       }
@@ -78,7 +78,7 @@ export default {
         password: '123456'
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        username: [{ required: true, trigger: 'blur', }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
       loading: false,

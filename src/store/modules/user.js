@@ -61,7 +61,6 @@ const actions = {
         const roleName =roleItem.name
         //因为后端返回的是字符串，这里把字符串转换为数据配合权限验证
         const role=roleName.split(',')
-        console.log(role)
         commit('SET_ROLE',role)
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
