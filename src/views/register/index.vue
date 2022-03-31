@@ -36,7 +36,6 @@
           name="password"
           tabindex="2"
           autocomplete="off"
-          @keyup.enter.native="handleLogin"
         />
         <span class="show-pwd" @click="showPwd">
           <svg-icon
@@ -54,7 +53,7 @@
           name="Passpassword"
           tabindex="2"
           autocomplete="off"
-          @keyup.enter.native="handleLogin"
+          @key.enter.native="handleRegister"
         />
         <span class="show-pwd" @click="showPwd">
           <svg-icon
@@ -64,13 +63,11 @@
       </el-form-item>
 
       <el-button
-        :loading="loading"
         type="primary"
         style="width: 100%; margin-bottom: 30px"
-        @click.native.prevent="handleLogin"
+        @click.native.prevent="handleRegister"
         >注册</el-button
       >
-
       <el-link class="loginlink" type="primary" href="/login"
         >已有账号？点击登陆！</el-link
       >
@@ -128,9 +125,7 @@ export default {
     };
   },
   watch: {},
-  created() {
-    this.fetchData();
-  },
+  created() {},
   methods: {
     showPwd() {
       if (this.passwordType === "password") {
@@ -142,9 +137,23 @@ export default {
         this.$refs.password.focus();
       });
     },
-    fetchData() {
-      this.listLoading = true;
-      register(this.registerForm).then((response) => {});
+    handleRegister() {
+      const _this = this;
+      register(_this.registerForm)
+        .then((response) => {
+          this.$message({
+            message: response.message,
+            type: "success",
+          });
+          this.registerForm.username = "";
+          this.registerForm.password = "";
+          this.registerForm.checkPass = "";
+        })
+        .catch((err) => {
+          this.registerForm.username = "";
+          this.registerForm.password = "";
+          this.registerForm.checkPass = "";
+        });
     },
   },
 };
@@ -202,7 +211,7 @@ $bg: #2d3a4b;
 $dark_gray: #889aa4;
 $light_gray: #eee;
 .loginlink {
-  padding-left: 30%;
+  margin-left: 30%;
 }
 .login-container {
   min-height: 100%;
