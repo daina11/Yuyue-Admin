@@ -7,7 +7,7 @@ const getDefaultState = () => {
     token: getToken(),
     name: '',
     avatar: '',
-    role:[]
+    role:[] //添加了这个
   }
 }
 

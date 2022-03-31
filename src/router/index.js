@@ -36,7 +36,11 @@ export const constantRouterMap = [
     component: () => import('@/views/login/index'),
     hidden: true
   },
-
+  {
+    path: '/register',
+    component: () => import('@/views/register/index'),
+    hidden: true
+  },
   {
     path: '/404',
     component: () => import('@/views/404'),
@@ -79,7 +83,7 @@ export const constantRouterMap = [
         path: 'index',
         name: 'ttt',
         component: () =>  import('@/views/tree/index'),
-        meta: { roles: ['admin'], title: 'Form', icon: 'form' }
+        meta: { title: 'Form', icon: 'form' }
       }
     ]
   },
@@ -101,11 +105,23 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/nested/menu1/index'),
         name: 'nested',
-        meta: {role:['admin'], title: 'nested', icon: 'nested'}
+        meta: {role:['admin'], title: '超级权限控制测试', icon: 'nested'}
       }
     ]
   },
-  // { path: '*', redirect: '/404', hidden: true }
+  {
+    path: '/super',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/nested/menu1/index'),
+        name: 'nested',
+        meta: { title: '普通权限', icon: 'nested'}
+      }
+    ]
+  },
+   { path: '*', redirect: '/404', hidden: true }
     // 404 page must be placed at the end !!!
 ];
 
