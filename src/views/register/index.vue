@@ -1,13 +1,19 @@
 <template>
   <div class="login-container">
-    <el-form ref="registerForm" :model="registerForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
-
+    <el-form
+      ref="registerForm"
+      :model="registerForm"
+      :rules="loginRules"
+      class="login-form"
+      auto-complete="on"
+      label-position="left"
+    >
       <div class="title-container">
         <h3 class="title">商家注册</h3>
       </div>
 
-      <el-form-item prop="username" >
-          <label for="" class="svg-container">用户名:</label>
+      <el-form-item prop="username">
+        <label for="" class="svg-container">用户名:</label>
         <el-input
           ref="username"
           v-model="registerForm.username"
@@ -20,7 +26,7 @@
       </el-form-item>
 
       <el-form-item prop="password">
-        <label for="" class="svg-container">密  码:</label>
+        <label for="" class="svg-container">密 码:</label>
         <el-input
           :key="passwordType"
           ref="password"
@@ -33,7 +39,9 @@
           @keyup.enter.native="handleLogin"
         />
         <span class="show-pwd" @click="showPwd">
-          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+          <svg-icon
+            :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
+          />
         </span>
       </el-form-item>
       <el-form-item prop="checkPass">
@@ -49,87 +57,105 @@
           @keyup.enter.native="handleLogin"
         />
         <span class="show-pwd" @click="showPwd">
-          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+          <svg-icon
+            :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
+          />
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">注册</el-button>
+      <el-button
+        :loading="loading"
+        type="primary"
+        style="width: 100%; margin-bottom: 30px"
+        @click.native.prevent="handleLogin"
+        >注册</el-button
+      >
 
-    <el-link class="loginlink" type="primary" href="/login">已有账号？点击登陆！</el-link>
+      <el-link class="loginlink" type="primary" href="/login"
+        >已有账号？点击登陆！</el-link
+      >
     </el-form>
-    
   </div>
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
+import { register } from "@/api/user";
 
 export default {
-  name: 'Register',
+  name: "Register",
   data() {
     const validateUsername = (rule, value, callback) => {
       if (value.length <= 5) {
-        callback(new Error('用户名长度要大于5'))
+        callback(new Error("用户名长度要大于5"));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
     const validatePassword = (rule, value, callback) => {
       if (value.length <= 5) {
-        callback(new Error('密码长度要大于5'))
+        callback(new Error("密码长度要大于5"));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
     const validatePass2 = (rule, value, callback) => {
-        if (value === "") {
+      if (value === "") {
         callback(new Error("请再次输入密码"));
       } else if (value !== this.registerForm.password) {
         callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
       }
-    }
+    };
     return {
       registerForm: {
-        username: '',
-        password: '',
-        checkPass:''
+        username: "",
+        password: "",
+        checkPass: "",
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur',  validator: validateUsername}],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }],
-        checkPass: [{required: true,trigger: "blur" , validator: validatePass2}]
+        username: [
+          { required: true, trigger: "blur", validator: validateUsername },
+        ],
+        password: [
+          { required: true, trigger: "blur", validator: validatePassword },
+        ],
+        checkPass: [
+          { required: true, trigger: "blur", validator: validatePass2 },
+        ],
       },
-      passwordType: 'password',
-    }
+      passwordType: "password",
+    };
   },
-  watch: {
-  
+  watch: {},
+  created() {
+    this.fetchData();
   },
   methods: {
     showPwd() {
-      if (this.passwordType === 'password') {
-        this.passwordType = ''
+      if (this.passwordType === "password") {
+        this.passwordType = "";
       } else {
-        this.passwordType = 'password'
+        this.passwordType = "password";
       }
       this.$nextTick(() => {
-        this.$refs.password.focus()
-      })
+        this.$refs.password.focus();
+      });
     },
-    handleLogin() {
-    }
-  }
-}
+    fetchData() {
+      this.listLoading = true;
+      register(this.registerForm).then((response) => {});
+    },
+  },
+};
 </script>
 
 <style lang="scss">
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
-$bg:#283443;
-$light_gray:#fff;
+$bg: #283443;
+$light_gray: #fff;
 $cursor: #fff;
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
@@ -172,11 +198,11 @@ $cursor: #fff;
 </style>
 
 <style lang="scss" scoped>
-$bg:#2d3a4b;
-$dark_gray:#889aa4;
-$light_gray:#eee;
-.loginlink{
-    padding-left:30%;
+$bg: #2d3a4b;
+$dark_gray: #889aa4;
+$light_gray: #eee;
+.loginlink {
+  padding-left: 30%;
 }
 .login-container {
   min-height: 100%;
@@ -210,7 +236,6 @@ $light_gray:#eee;
     color: $dark_gray;
     vertical-align: middle;
     width: 30px;
-    
   }
 
   .title-container {

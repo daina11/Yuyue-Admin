@@ -23,3 +23,10 @@ export function logout() {
   
   })
 }
+  export function register(data) {
+    return request({
+      url: 'http://localhost:8080/register',
+      method: 'post',
+      data
+    })
+}
