@@ -64,13 +64,13 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/example/table',
     name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help', role: ['super_editor'] },
+    meta: { title: 'Example', icon: 'el-icon-s-help' },
     children: [
       {
         path: 'table',
         name: 'Table',
         component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        meta: { title: '本店信息', icon: 'table' }
       },
     ]
   },
@@ -83,7 +83,7 @@ export const constantRouterMap = [
         path: 'index',
         name: 'ttt',
         component: () =>  import('@/views/tree/index'),
-        meta: { title: 'Form', icon: 'form' }
+        meta: { title: '预约管理', icon: 'form' }
       }
     ]
   },
@@ -105,7 +105,7 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/nested/menu1/index'),
         name: 'nested',
-        meta: {role:['admin'], title: '超级权限控制测试', icon: 'nested'}
+        meta: {role:['admin'], title: '商家管理', icon: 'nested'}
       }
     ]
   },
@@ -117,10 +117,34 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/nested/menu1/index'),
         name: 'nested',
-        meta: { title: '普通权限', icon: 'nested'}
+        meta: {role:['admin'], title: '用户管理', icon: 'table'}
+      }
+    ]
+  },  {
+    path: '/yuyue',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/nested/menu1/index'),
+        name: 'nested',
+        meta: {role:['admin'], title: '用户预约信息管理', icon: 'form'}
       }
     ]
   },
+  {
+    path: '/lunbo',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/nested/menu1/index'),
+        name: 'nested',
+        meta: {role:['admin'], title: '轮播管理', icon: 'tree'}
+      }
+    ]
+  },
+
    { path: '*', redirect: '/404', hidden: true }
     // 404 page must be placed at the end !!!
 ];
