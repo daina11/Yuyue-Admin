@@ -7,7 +7,8 @@ const getDefaultState = () => {
     token: getToken(),
     name: '',
     avatar: '',
-    role:[] //添加了这个
+    role:[], //添加了这个
+    userid:''
   }
 }
 
@@ -28,6 +29,9 @@ const mutations = {
   },
   SET_ROLE:(state, role)=>{
     state.role = role
+  },
+  SET_USERID:(state, userid)=>{
+    state.userid = userid
   }
 }
 
@@ -57,13 +61,14 @@ const actions = {
           return reject('Verification failed, please Login again.')
         }
 
-        const { name, avatar ,roleItem} = data
+        const {id, name, avatar ,roleItem} = data
         const roleName =roleItem.name
         //因为后端返回的是字符串，这里把字符串转换为数据配合权限验证
         const role=roleName.split(',')
         commit('SET_ROLE',role)
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
+        commit('SET_USERID', id)
         resolve(data)
       }).catch(error => {
         reject(error)

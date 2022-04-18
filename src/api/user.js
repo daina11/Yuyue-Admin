@@ -10,7 +10,7 @@ export function login(data) {
 
 export function getInfo(token) {
   return request({
-    url: 'http://localhost:8080/getUserinfo',
+    url: '/getUserinfo',
     method: 'get',
     params: { token }
   })
@@ -18,14 +18,14 @@ export function getInfo(token) {
 
 export function logout() {
   return request({
-    url: 'http://localhost:8080/loginOut',
+    url: '/loginOut',
     method: 'post',
   
   })
 }
   export function register(data) {
     return request({
-      url: 'http://localhost:8080/register',
+      url: '/register',
       method: 'post',
       data
     })

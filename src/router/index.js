@@ -55,21 +55,21 @@ export const constantRouterMap = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '个人中心', icon: 'dashboard' }
     }]
   },
 
   {
-    path: '/example',
+    path: '/shopinfo',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
+    redirect: '/shopinfo',
+    name: 'shopinfo',
+    meta: { title: 'shopinfo', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
+        path: 'shopinfo',
+        name: 'shopinfo',
+        component: () => import('@/views/shopinfo/index'),
         meta: { title: '本店信息', icon: 'table' }
       },
     ]
@@ -96,7 +96,17 @@ export const constantRouterMap = [
 
 //异步挂载的路由
 //动态需要根据权限加载的路由表 
-export const asyncRouterMap = [
+export const asyncRouterMap = [{
+  path: '/',
+  component: Layout,
+  redirect: '/dashboard',
+  children: [{
+    path: 'dashboard',
+    name: 'Dashboard',
+    component: () => import('@/views/dashboard/index'),
+    meta: { title: '个人中心', icon: 'dashboard' }
+  }]
+},
   {
     path: '/nested',
     component: Layout,
