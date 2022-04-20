@@ -64,13 +64,19 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/shopinfo',
     name: 'shopinfo',
-    meta: { title: 'shopinfo', icon: 'el-icon-s-help' },
+    meta: { title: '商店信息', icon: 'el-icon-menu' },
     children: [
       {
         path: 'shopinfo',
         name: 'shopinfo',
         component: () => import('@/views/shopinfo/index'),
         meta: { title: '本店信息', icon: 'table' }
+      },
+      {
+        path: 'fuwenben',
+        name: 'fuwenben',
+        component: () => import('@/views/shopinfo/fuwenben'),
+        meta: { title: '商店介绍', icon: 'el-icon-edit' }
       },
     ]
   },

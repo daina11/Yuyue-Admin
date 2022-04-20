@@ -123,7 +123,7 @@
       </el-form-item>
       <el-form-item style="margin-left: 15%">
         <el-button type="primary" @click="onSubmit(shopform)"
-          >立即创建</el-button
+          >保存信息</el-button
         >
         <el-button>取消</el-button>
       </el-form-item>
@@ -152,7 +152,7 @@ export default {
         imgurl: "",
         shopstatus: false,
       },
-      statuslab: "",
+      statuslab: "未提交审核",
       //后台传回来的背景图的链接
       bannerUrl: "",
       shopstatus: false,
@@ -236,11 +236,10 @@ export default {
       if (res.data.status == 1) {
         this.shopform.shopstatus = true;
         this.statuslab = "审核通过";
-      }
-     else if (res.data.status == 0) {
+      } else if (res.data.status == 0) {
         this.shopform.shopstatus = false;
         this.statuslab = "商店待审核";
-      } else  {
+      } else {
         this.shopform.shopstatus = false;
         this.statuslab = "审核未通过";
       }
@@ -261,7 +260,19 @@ export default {
       } else {
         this.$refs[shopform].validate((valid) => {
           if (valid) {
-            saveshop(this.shopform).then((res) => {});
+            saveshop(this.shopform)
+              .then((res) => {
+                this.$message({
+                  message: "保存成功",
+                  type: "success",
+                });
+              })
+              .catch(() => {
+                this.$message({
+                  message: "保存失败",
+                  type: "warning",
+                });
+              });
           } else {
             return false;
           }
@@ -271,7 +282,7 @@ export default {
     //上传成功获取后台返回的链接
     handleSuccess: function (result) {
       console.log(result);
-      this.bannerUrl = result;
+      this.bannerUrl = result.message;;
     },
     fetchData() {
       this.listLoading = true;
@@ -284,15 +295,14 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-
 .app-container {
   width: 60%;
   margin: 0 auto;
-  ::v-deep.status{
- .el-form-item__label{
-    width: auto !important;
+  ::v-deep.status {
+    .el-form-item__label {
+      width: auto !important;
+    }
   }
-}
 }
 .ud-img {
   margin: 0px 15% 15px;

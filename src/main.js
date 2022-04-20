@@ -11,7 +11,15 @@ import '@/styles/index.scss' // global css
 import App from './App'
 import store from './store'
 import router from './router'
-
+import VueQuillEditor from 'vue-quill-editor'
+// require styles
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+import * as Quill from 'quill'  
+import ImageResize from 'quill-image-resize-module';
+Quill.register('modules/imageResize',ImageResize);
+Vue.use(VueQuillEditor)
 import '@/icons' // icon
 import '@/permission' // permission control
 

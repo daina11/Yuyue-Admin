@@ -23,3 +23,10 @@ export function getshopbyuid(uid) {
     params: { uid }
   })
 }
+export function postintro(data) {
+  return request({
+    url: '/postintro',
+    method: 'post',
+    data
+  })
+}
