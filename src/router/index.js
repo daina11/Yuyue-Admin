@@ -84,12 +84,26 @@ export const constantRouterMap = [
   {
     path: '/ttt',
     component: Layout,
+    meta: { title: '订单管理', icon: 'el-icon-document-copy' },
     children: [
+      {
+        path: 'unfinished',
+        name: 'ttt',
+        component: () =>  import('@/views/yuyueguanli/unfinished'),
+        meta: { title: '未完成订单', icon: 'form' }
+      },
       {
         path: 'index',
         name: 'ttt',
-        component: () =>  import('@/views/tree/index'),
-        meta: { title: '预约管理', icon: 'form' }
+        component: () =>  import('@/views/yuyueguanli/all'),
+        meta: { title: '所有订单', icon: 'form' }
+      },
+      
+      {
+        path: 'finished',
+        name: 'ttt',
+        component: () =>  import('@/views/yuyueguanli/finished'),
+        meta: { title: '已完成订单', icon: 'form' }
       }
     ]
   },
